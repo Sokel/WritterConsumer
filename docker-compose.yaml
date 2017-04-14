@@ -1,0 +1,38 @@
+version: '2'
+services:
+#  rabbit:
+#    image: "rabbitmq:latest"
+#    hostname: "rabbit"
+#    environment:
+#      RABBITMQ_ERLANG_COOKIE: "SWQOKODSQALRPCLNMEQG"
+#      RABBITMQ_DEFAULT_USER: "rabbitmq"
+#      RABBITMQ_DEFAULT_PASS: "rabbitmq"
+#      RABBITMQ_DEFAULT_VHOST: "/"
+#    restart: always
+#    ports:
+#      - "15672:15672"
+#      - "5672:5672"
+#    labels:
+#      NAME: "rabbitmq"
+#    volumes:
+#      - "./enabled_plugins:/etc/rabbitmq/enabled_plugins"
+
+  app:
+    build: .
+    volumes:
+      - ./poloniex_writer:/usr/src/app
+    image : "python:3.5.3-onbuild"
+    environment:
+      RABBITMQ_ERLANG_COOKIE: "SWQOKODSQALRPCLNMEQG"
+      RABBITMQ_DEFAULT_USER: "rabbitmq"
+      RABBITMQ_DEFAULT_PASS: "rabbitmq"
+#Error description:
+#  {error, {cannot_read_enabled_plugins_file,"/etc/rabbitmq/enabled_plugins", eisdir}}
+
+#      RABBITMQ_DEFAULT_VHOST: "/"
+#
+#    links:
+#      - rabbit:rabbit
+#    depends_on:
+#      - rabbit
+#    restart: always
